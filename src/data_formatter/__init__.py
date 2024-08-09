@@ -11,8 +11,8 @@ from .dataframe_find import find_row_positions
 
 from .dataframe_add_calculation import add_calculated_column
 from .dataframe_add_calculation import add_calculated_row
-from .dataframe_add_calculation import add_calculated_columns
-from .dataframe_add_calculation import add_calculated_rows
+from .dataframe_add_calculation import add_calculated_columns_by_group
+from .dataframe_add_calculation import add_calculated_rows_by_group
 
 from .calculations import make_commonsize_vertical
 from .calculations import make_commonsize_horizontal
@@ -59,7 +59,7 @@ from .excel_chart_styles import set_chart_size_and_position, set_chart_area_styl
 from .excel_chart_styles import set_legend_style, set_axis_as_dollars, set_axis_as_date
 from .excel_chart_styles import set_chart_title
 
-from .util import get_even_numbers, replace_list_element, proper_case, sort_dataframe
+from .util import get_even_numbers, replace_list_element, proper_case, sort_dataframe_by_custom_order
 from .util import only_one, not_in, unique_string, index_to_dict, repeat_c
 from .util import column_count, column_level_count, row_count, row_level_count
 

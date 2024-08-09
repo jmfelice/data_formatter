@@ -6,7 +6,8 @@ def growth(x,y):
 
 
 def make_commonsize_vertical(df, category_col, category_val, group_cols):
-    calc = lambda x: x / x.loc[x.index.get_level_values(category_col) == category_val].values
+    def calc(x):
+        x / x.loc[x.index.get_level_values(category_col) == category_val].values
     result = df.groupby(group_cols, group_keys = False).apply(calc)
     return result
 
