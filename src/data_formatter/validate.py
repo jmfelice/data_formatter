@@ -80,6 +80,7 @@ def validate_value_is_string_or_tuple(value: Union[str, Tuple]) -> None:
     if not isinstance(value, (str, tuple)):
         raise TypeError(f"The value '{value}' is not a string or a tuple.")
 
+
 def validate_string_in_highest_level(column_tuple, string):
     """Check if a string is in the highest level of a column tuple."""
     if string != column_tuple[-1]:
@@ -87,12 +88,41 @@ def validate_string_in_highest_level(column_tuple, string):
     return True
 
 
-def validate_string_in_specified_level(column_tuple, string, level):
-    """Check if a string is in a specified level of a column tuple."""
+def validate_string_in_specified_level(
+    column_tuple: Tuple,
+    string: str,
+    level: Union[int, str],
+    index: pd.MultiIndex = None
+) -> bool:
+    """
+    Check if a string is in a specified level of a column tuple.
+
+    Parameters:
+    column_tuple (Tuple): The tuple representing a MultiIndex level.
+    string (str): The string to check within the specified level.
+    level (Union[int, str]): The level index or name to check.
+    index (pd.MultiIndex, optional): The MultiIndex to use for level name resolution.
+
+    Returns:
+    bool: True if the string is in the specified level of the column tuple, False otherwise.
+
+    Raises:
+    IndexError: If the specified level is out of range for the column tuple.
+    ValueError: If the string is not found in the specified level.
+    """
+    if isinstance(level, str):
+        if index is None:
+            raise ValueError("An index must be provided to resolve level names.")
+        if level not in index.names:
+            raise KeyError(f"Level name '{level}' not found in index.")
+        level = index.names.index(level)
+
     if level < 0 or level >= len(column_tuple):
         raise IndexError("Specified level is out of range for the column tuple.")
+
     if string != column_tuple[level]:
         raise ValueError(f"The string '{string}' is not in level {level} of the column tuple {column_tuple}.")
+
     return True
 
 
